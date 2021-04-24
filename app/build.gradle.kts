@@ -65,6 +65,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":features:charts"))
 
     implementation(platform(project(":platform:core-android-deps")))
     implementation("androidx.activity:activity-ktx")
