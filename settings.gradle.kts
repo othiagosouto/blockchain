@@ -1,5 +1,6 @@
 rootProject.name = "Blockchain"
 include(":app")
+include(":data")
 include(":domain")
 include(":remote")
 include(":platform:core-android-deps")
