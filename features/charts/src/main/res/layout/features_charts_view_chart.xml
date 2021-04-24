@@ -45,13 +45,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chart" />
 
-    <include
-        layout="@layout/features_charts_view_chart_loading" />
-
     <androidx.constraintlayout.widget.Group
         android:id="@+id/loadedContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="title,description,chart,caption" />
+
+    <include layout="@layout/features_charts_view_chart_loading" />
+
+    <include layout="@layout/features_charts_view_chart_error" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

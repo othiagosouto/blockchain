@@ -17,6 +17,7 @@ import dev.thiagosouto.blockchain.domain.Axis
 import dev.thiagosouto.blockchain.domain.Chart
 import dev.thiagosouto.blockchain.features.charts.R
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartBinding
+import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartErrorBinding
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartLoadingBinding
 
 class ChartView @JvmOverloads constructor(
@@ -26,17 +27,31 @@ class ChartView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
     private val contentBinding: FeaturesChartsViewChartBinding
     private val loadingBinding: FeaturesChartsViewChartLoadingBinding
+    private val errorBinding: FeaturesChartsViewChartErrorBinding
 
     init {
         val layoutInflater: LayoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentBinding = FeaturesChartsViewChartBinding.inflate(layoutInflater, this, true)
         loadingBinding = FeaturesChartsViewChartLoadingBinding.bind(contentBinding.root)
+        errorBinding = FeaturesChartsViewChartErrorBinding.bind(contentBinding.root)
     }
 
     fun showLoading() {
+        errorBinding.errorContent.visibility = View.GONE
         contentBinding.loadedContent.visibility = View.GONE
         loadingBinding.shimmerViewContainer.visibility = View.VISIBLE
+    }
+
+    fun showError(title: String, description: String, retryAction: () -> Unit) {
+        errorBinding.errorTitle.text = title
+        errorBinding.errorDescription.text = description
+        errorBinding.buttonRetry.setOnClickListener {
+            retryAction()
+        }
+        contentBinding.loadedContent.visibility = View.GONE
+        loadingBinding.shimmerViewContainer.visibility = View.GONE
+        errorBinding.errorContent.visibility = View.VISIBLE
     }
 
     fun showChart(chart: Chart) {

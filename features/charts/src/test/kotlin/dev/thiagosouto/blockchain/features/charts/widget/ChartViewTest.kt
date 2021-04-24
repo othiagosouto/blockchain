@@ -10,13 +10,14 @@ import org.robolectric.annotation.Config
 class ChartViewTest {
 
     @Test
-    fun shouldPresentShimmer_when_contentIsNotLoaded() {
+    fun shouldPresentLoading_when_showLoadingIsCalled() {
         launchChartView {
             applyLoading()
         } check {
-            shimmerVisible()
-            loadedContentInvisible()
-            shimmerContentDescription()
+            loadingVisible()
+            loadingContentDescription()
+            contentNotVisible()
+            errorNotVisible()
         }
     }
 
@@ -25,9 +26,33 @@ class ChartViewTest {
         launchChartView {
             applyContent()
         } check {
-            shimmerIsNotVisible()
+            loadingNotVisible()
+            errorNotVisible()
             contentDisplayed()
             contentDisplayedWithExpectedValues()
+        }
+    }
+
+    @Test
+    fun showPresentErrorView_when_showErrorIsCalled() {
+        launchChartView {
+            applyError()
+        } check {
+            loadingNotVisible()
+            contentNotVisible()
+            errorVisible()
+            checkErrorContent()
+        }
+    }
+
+    @Test
+    fun shouldCallRetryAction_when_retryButtonIsClicked() {
+        launchChartView {
+            applyError()
+        } perform {
+            clickRetry()
+        } check {
+            retryActionFired()
         }
     }
 }
