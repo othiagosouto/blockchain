@@ -19,6 +19,7 @@ class ChartsActivity : ComponentActivity() {
             chartsViewModel.bind().collect { state ->
                 when (state) {
                     is ChartsScreenState.Idle -> chartsViewModel.interact(ChartsInteractions.OpenedScreen)
+                    is ChartsScreenState.Loading -> binding.chartView.showLoading()
                     is ChartsScreenState.Success -> binding.chartView.showChart(state.chart)
                 }
             }
