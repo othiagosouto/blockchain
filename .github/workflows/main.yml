@@ -1,0 +1,38 @@
+name: Main
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  static_analysis:
+    name: "Static analysis step"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 1.8
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Run detekt & detekt ktlint wrapper
+        run: ./gradlew detekt
+
+  unit_testing:
+    name: "Tests step"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 1.8
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Run unit tests
+        run: ./gradlew clean test
