@@ -65,6 +65,8 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":remote"))
     implementation(project(":features:charts"))
 
     implementation(platform(project(":platform:core-android-deps")))
