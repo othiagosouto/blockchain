@@ -33,7 +33,6 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter")
 
     testImplementation(platform(project(":platform:core-test-deps")))
-    testImplementation("io.mockk:mockk")
     testImplementation("com.squareup.okhttp3:mockwebserver")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
     testImplementation("io.insert-koin:koin-test")
