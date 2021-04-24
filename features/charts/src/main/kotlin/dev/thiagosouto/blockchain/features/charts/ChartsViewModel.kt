@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.thiagosouto.blockchain.domain.ChartParameters
 import dev.thiagosouto.blockchain.domain.ChartRepository
+import dev.thiagosouto.blockchain.domain.exception.InternetNotAvailableException
+import dev.thiagosouto.blockchain.domain.exception.UnexpectedErrorException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,17 +36,30 @@ class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
         }
     }
 
+    @Suppress("SwallowedException")
     private fun showChart() {
         viewModelScope.launch {
             _states.value = ChartsScreenState.Loading
-            _states.value = ChartsScreenState.Success(
-                repository.getChart(
-                    ChartParameters(
-                        chartId = MARKET_PRICE,
-                        timespan = TIME_SPAN
+            try {
+                _states.value = ChartsScreenState.Success(
+                    repository.getChart(
+                        ChartParameters(
+                            chartId = MARKET_PRICE,
+                            timespan = TIME_SPAN
+                        )
                     )
                 )
-            )
+            } catch (e: InternetNotAvailableException) {
+                _states.value = ChartsScreenState.Failed(
+                    R.string.feature_charts_error_error_title,
+                    R.string.feature_charts_error_internet_message,
+                )
+            } catch (e: UnexpectedErrorException) {
+                _states.value = ChartsScreenState.Failed(
+                    R.string.feature_charts_error_error_title,
+                    R.string.feature_charts_error_default_message,
+                )
+            }
         }
     }
 

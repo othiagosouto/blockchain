@@ -9,7 +9,6 @@ sealed class ChartsScreenState {
     data class Success(val chart: Chart) : ChartsScreenState()
     data class Failed(
         @StringRes val titleResId: Int,
-        @StringRes val descriptionResId: Int,
-        val retryAction: () -> Unit
+        @StringRes val descriptionResId: Int
     ) : ChartsScreenState()
 }
