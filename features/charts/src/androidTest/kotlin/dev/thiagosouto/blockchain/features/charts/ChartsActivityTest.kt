@@ -8,6 +8,7 @@ import dev.thiagosouto.blockchain.domain.ChartParameters
 import dev.thiagosouto.blockchain.domain.ChartRepository
 import dev.thiagosouto.blockchain.features.charts.di.chartsModules
 import dev.thiagosouto.blockchain.features.charts.rules.KoinTestRule
+import kotlinx.coroutines.delay
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -30,16 +31,18 @@ class ChartsActivityTest {
 }
 
 class FakeRepository : ChartRepository {
-    override suspend fun getChart(params: ChartParameters): Chart =
-        Chart(
+    override suspend fun getChart(params: ChartParameters): Chart {
+        delay(2_000)
+       return  Chart(
             axis = listOf(
                 Axis(1000, 1.0f),
                 Axis(2000, 2.0f),
                 Axis(3000, 3.0f)
             ),
             description = "description",
-            name = "market-price",
+            name = "Market price",
             unit = "USD",
             id = "market-price"
         )
+    }
 }
