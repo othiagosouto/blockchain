@@ -37,4 +37,6 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
     testImplementation("io.insert-koin:koin-test")
+    testImplementation("com.google.truth:truth")
+
 }
