@@ -55,6 +55,10 @@ android {
     testOptions {
         unitTests.isIncludeAndroidResources = true
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
