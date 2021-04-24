@@ -68,6 +68,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":remote"))
     implementation(project(":features:charts"))
+    implementation(project(":features:commons"))
 
     implementation(platform(project(":platform:core-android-deps")))
     implementation("androidx.activity:activity-ktx")

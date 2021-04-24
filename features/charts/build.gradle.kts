@@ -63,6 +63,8 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":features:commons"))
+
     implementation(platform(project(":platform:core-kotlin-deps")))
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
