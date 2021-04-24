@@ -10,10 +10,22 @@ import org.robolectric.annotation.Config
 class ChartViewTest {
 
     @Test
+    fun shouldPresentShimmer_when_contentIsNotLoaded() {
+        launchChartView {
+            applyLoading()
+        } check {
+            shimmerVisible()
+            loadedContentInvisible()
+            shimmerContentDescription()
+        }
+    }
+
+    @Test
     fun shouldPresentContent() {
         launchChartView {
             applyContent()
         } check {
+            shimmerIsNotVisible()
             contentDisplayed()
             contentDisplayedWithExpectedValues()
         }

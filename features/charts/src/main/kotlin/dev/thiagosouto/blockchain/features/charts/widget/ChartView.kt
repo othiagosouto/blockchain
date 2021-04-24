@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,39 +17,48 @@ import dev.thiagosouto.blockchain.domain.Axis
 import dev.thiagosouto.blockchain.domain.Chart
 import dev.thiagosouto.blockchain.features.charts.R
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartBinding
+import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartLoadingBinding
 
 class ChartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    private val binding: FeaturesChartsViewChartBinding
+    private val contentBinding: FeaturesChartsViewChartBinding
+    private val loadingBinding: FeaturesChartsViewChartLoadingBinding
 
     init {
         val layoutInflater: LayoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        binding = FeaturesChartsViewChartBinding.inflate(layoutInflater, this, true)
+        contentBinding = FeaturesChartsViewChartBinding.inflate(layoutInflater, this, true)
+        loadingBinding = FeaturesChartsViewChartLoadingBinding.bind(contentBinding.root)
+    }
+
+    fun showLoading() {
+        contentBinding.loadedContent.visibility = View.GONE
+        loadingBinding.shimmerViewContainer.visibility = View.VISIBLE
     }
 
     fun showChart(chart: Chart) {
-        binding.title.text = chart.name
-        binding.description.text = chart.description
-        binding.caption.text = chart.name
-        binding.chart.setBackgroundColor(Color.TRANSPARENT)
-        binding.chart.description.isEnabled = false
-        binding.chart.setTouchEnabled(true)
-        binding.chart.legend.isEnabled = false
-        binding.chart.isDragEnabled = true
-        binding.chart.setScaleEnabled(true)
-        binding.chart.setPinchZoom(true)
-
-        binding.chart.xAxis.setup(context)
-
-        binding.chart.axisRight.isEnabled = false
-
-        binding.chart.axisLeft.setMaxAndMin(context, chart.axis)
-        binding.chart.animateX(animateDuration)
-        binding.chart.data = LineData(listOf(chart.toEntries().createDataSet(context, chart.name)))
+        contentBinding.title.text = chart.name
+        contentBinding.description.text = chart.description
+        contentBinding.caption.text = chart.name
+        contentBinding.chart.run {
+            setBackgroundColor(Color.TRANSPARENT)
+            description.isEnabled = false
+            setTouchEnabled(true)
+            legend.isEnabled = false
+            isDragEnabled = true
+            setScaleEnabled(true)
+            setPinchZoom(true)
+            xAxis.setup(context)
+            axisRight.isEnabled = false
+            axisLeft.setMaxAndMin(context, chart.axis)
+            animateX(animateDuration)
+            data = LineData(listOf(chart.toEntries().createDataSet(context, chart.name)))
+        }
+        contentBinding.loadedContent.visibility = View.VISIBLE
+        loadingBinding.shimmerViewContainer.visibility = View.GONE
     }
 
     private fun Chart.toEntries(): List<Entry> = mutableListOf<Entry>().apply {
