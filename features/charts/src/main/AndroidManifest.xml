@@ -3,6 +3,7 @@
     package="dev.thiagosouto.blockchain.features.charts">
 
     <application>
-        <activity android:name=".ChartsActivity" />
+        <activity android:name=".ChartsActivity"
+            android:theme="@style/Theme.BlockChainApp"/>
     </application>
 </manifest>
