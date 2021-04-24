@@ -23,6 +23,7 @@ class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
             interactions.consumeAsFlow().collect {
                 when (it) {
                     is ChartsInteractions.OpenedScreen -> showChart()
+                    is ChartsInteractions.ClickedOnRetry -> showChart()
                 }
             }
         }

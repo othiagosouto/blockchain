@@ -21,6 +21,10 @@ class ChartsActivity : ComponentActivity() {
                     is ChartsScreenState.Idle -> chartsViewModel.interact(ChartsInteractions.OpenedScreen)
                     is ChartsScreenState.Loading -> binding.chartView.showLoading()
                     is ChartsScreenState.Success -> binding.chartView.showChart(state.chart)
+                    is ChartsScreenState.Failed -> binding.chartView.showError(
+                        getString(state.titleResId),
+                        getString(state.descriptionResId)
+                    ) { chartsViewModel.interact(ChartsInteractions.ClickedOnRetry) }
                 }
             }
         }

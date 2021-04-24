@@ -99,6 +99,44 @@ class ChartsViewModelTest {
             )
         }
 
+    @Test
+    fun `should retry interaction work as expected`() = runBlocking {
+        retryHandling(
+            UnexpectedErrorException(Exception()),
+            R.string.feature_charts_error_default_message,
+        )
+    }
+
+    private suspend fun retryHandling(exception: Exception, descriptionResId: Int) {
+        val repository: ChartRepository = mockk()
+        val chart = Chart(emptyList(), "description", "market-price", "USD", "market-price")
+        coEvery { repository.getChart(any()) } throws exception andThen chart
+
+        val viewModel = ChartsViewModel(repository)
+
+        viewModel.run {
+            bind().test {
+                interact(ChartsInteractions.OpenedScreen)
+                interact(ChartsInteractions.ClickedOnRetry)
+
+                val emissions =
+                    listOf(expectItem(), expectItem(), expectItem(), expectItem(), expectItem())
+                val viewStates = listOf(
+                    ChartsScreenState.Idle,
+                    ChartsScreenState.Loading,
+                    ChartsScreenState.Failed(
+                        R.string.feature_charts_error_error_title,
+                        descriptionResId
+                    ),
+                    ChartsScreenState.Loading,
+                    ChartsScreenState.Success(chart)
+                )
+
+                assertThat(emissions).isEqualTo(viewStates)
+            }
+        }
+    }
+
     private suspend fun checkErrorStateFrom(exception: Exception, descriptionResId: Int) {
         val repository: ChartRepository = mockk()
         coEvery { repository.getChart(any()) } throws exception
