@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="charts_home_feature">BlockchainApp</string>
+    <string name="feature_charts_loading">Loading chart</string>
+
 </resources>

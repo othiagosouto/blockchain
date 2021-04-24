@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/feature_charts_loading"
+        android:visibility="gone"
+        app:shimmer_auto_start="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="noHideDescendants"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/title_shimmer"
+                android:layout_width="180dp"
+                android:layout_height="20dp"
+                android:background="#a6a6a6"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/description_shimmer"
+                android:layout_width="290dp"
+                android:layout_height="45sp"
+                android:layout_marginTop="8dp"
+                android:background="#a6a6a6" />
+
+            <View
+                android:id="@+id/chart_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="8dp"
+                android:background="#a6a6a6" />
+
+            <View
+                android:layout_width="150dp"
+                android:layout_height="16sp"
+                android:drawablePadding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chart" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</merge>
+
+
