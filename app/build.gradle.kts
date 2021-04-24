@@ -64,11 +64,20 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.3.0")
-    testImplementation("junit:junit:4.+")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    implementation(project(":domain"))
+
+    implementation(platform(project(":platform:core-android-deps")))
+    implementation("androidx.activity:activity-ktx")
+    implementation("com.google.android.material:material")
+    implementation("io.insert-koin:koin-android")
+
+    testImplementation(platform(project(":platform:core-integration-test-deps")))
+    testImplementation("androidx.test:core")
+    testImplementation("org.robolectric:robolectric")
+    testImplementation("androidx.test.ext:junit")
+    testImplementation("androidx.test.espresso:espresso-intents")
+
+    testImplementation(platform(project(":platform:core-test-deps")))
+    testImplementation("com.google.truth:truth")
+    testImplementation("io.insert-koin:koin-test")
 }
