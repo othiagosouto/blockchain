@@ -2,5 +2,9 @@
 <resources>
     <string name="charts_home_feature">BlockchainApp</string>
     <string name="feature_charts_loading">Loading chart</string>
-
+    <string name="feature_charts_error_content_description">error</string>
+    <string name="feature_charts_error_error_title">something happened</string>
+    <string name="feature_charts_error_internet_message"> hmm, seems that your internet may not be available, could you check?</string>
+    <string name="feature_charts_error_default_message">unfortunately something unexpected happened :(</string>
+    <string name="feature_charts_error_try_again">try again</string>
 </resources>
