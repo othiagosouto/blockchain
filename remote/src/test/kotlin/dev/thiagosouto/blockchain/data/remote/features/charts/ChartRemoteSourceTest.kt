@@ -6,6 +6,7 @@ import dev.thiagosouto.blockchain.domain.Axis
 import dev.thiagosouto.blockchain.domain.Chart
 import dev.thiagosouto.blockchain.domain.ChartRequest
 import dev.thiagosouto.blockchain.domain.RemoteSource
+import dev.thiagosouto.blockchain.domain.exception.UnexpectedErrorException
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.mockwebserver.MockResponse
@@ -87,6 +88,14 @@ class ChartRemoteSourceTest {
             "/charts/chartName?timespan=timespan&rollingAverage=rollingAverage&start=start&format=format&sampled=true"
         assertThat(request.path).isEqualTo(expectedUrl)
     }
+
+    @Test(expected = UnexpectedErrorException::class)
+    fun `should throw UnexpectedErrorException when HttpException occurs`(): Unit =
+        runBlocking {
+            server.enqueue(MockResponse().setResponseCode(400).setBody(expectedResponse))
+
+            remoteSource.fetchChartInfo(ChartRequest(chartName))
+        }
 
     private fun String.readAsText() = ClassLoader.getSystemResource(this).readText()
 }

@@ -7,9 +7,14 @@ import dev.thiagosouto.blockchain.domain.RemoteSource
 
 internal class ChartRemoteSource(private val api: ChartsApi) : RemoteSource {
 
-    override suspend fun fetchChartInfo(chartRequest: ChartRequest): Chart = api
-        .fetchChartInfo(chartRequest.chartId, chartRequest.toQueryMap())
-        .toChart(chartRequest.chartId)
+    override suspend fun fetchChartInfo(chartRequest: ChartRequest): Chart =
+        remoteCall {
+            api.fetchChartInfo(
+                chartId = chartRequest.chartId,
+                arguments = chartRequest.toQueryMap()
+            )
+                .toChart(chartRequest.chartId)
+        }
 
     private fun ChartRequest.toQueryMap(): Map<String, String> {
         val arguments: MutableMap<String, String> = linkedMapOf()
