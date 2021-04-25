@@ -71,4 +71,7 @@ dependencies {
     testImplementation("androidx.test:core")
     testImplementation("org.robolectric:robolectric")
     testImplementation("androidx.test.ext:junit")
+
+    testImplementation(platform(project(":platform:core-test-deps")))
+    testImplementation("com.google.truth:truth")
 }

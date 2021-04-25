@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -19,6 +17,7 @@ import dev.thiagosouto.blockchain.features.charts.R
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartBinding
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartErrorBinding
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartLoadingBinding
+import dev.thiagosouto.blockchain.features.commons.ext.getThemeColorFrom
 
 class ChartView @JvmOverloads constructor(
     context: Context,
@@ -85,13 +84,13 @@ class ChartView @JvmOverloads constructor(
     private fun YAxis.setMaxAndMin(context: Context, axis: List<Axis>) {
         axisMaximum = axis.maxOf { it.value }
         axisMinimum = axis.minOf { it.value }
-        axisLineColor = getThemeColor(context, android.R.attr.textColorPrimary)
-        textColor = getThemeColor(context, android.R.attr.textColorPrimary)
+        axisLineColor = context.getThemeColorFrom(android.R.attr.textColorPrimary)
+        textColor = context.getThemeColorFrom(android.R.attr.textColorPrimary)
         textSize = yAxisTextSize
     }
 
     private fun XAxis.setup(context: Context) {
-        axisLineColor = getThemeColor(context, android.R.attr.textColorPrimary)
+        axisLineColor = context.getThemeColorFrom(android.R.attr.textColorPrimary)
         this.setDrawGridLines(false)
         this.isEnabled = false
         this.setDrawAxisLine(false)
@@ -99,26 +98,13 @@ class ChartView @JvmOverloads constructor(
 
     private fun List<Entry>.createDataSet(context: Context, title: String): LineDataSet =
         LineDataSet(this, title).apply {
-            val secondaryColor = getThemeColor(context, R.attr.colorSecondary)
+            val secondaryColor = context.getThemeColorFrom(R.attr.colorSecondary)
             color = secondaryColor
             setCircleColor(secondaryColor)
             setDrawValues(false)
             circleRadius = dataSetEntryCircleRadius
             setDrawCircleHole(true)
         }
-
-    @ColorInt
-    private fun getThemeColor(
-        context: Context,
-        @AttrRes attrs: Int
-    ): Int {
-        val a = context.obtainStyledAttributes(null, intArrayOf(attrs))
-        try {
-            return a.getColor(0, Color.MAGENTA)
-        } finally {
-            a.recycle()
-        }
-    }
 
     companion object {
         private const val yAxisTextSize = 14f
