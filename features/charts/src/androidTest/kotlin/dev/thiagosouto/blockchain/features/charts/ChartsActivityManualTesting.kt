@@ -19,7 +19,7 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 @Ignore("This class is just to help me do manual testing when coding")
-class ChartsActivityTest {
+class ChartsActivityManualTesting {
 
     @get:Rule
     val koinRule: KoinTestRule =
