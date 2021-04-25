@@ -14,7 +14,7 @@ class ChartsActivity : FragmentActivity() {
         listOf(
             "market-price" to "Market price",
             "n-transactions" to "Transactions by day",
-            "total-bitcoins" to "Bitcoin in circulation"
+            "total-bitcoins" to "Bitcoins in circulation"
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

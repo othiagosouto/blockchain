@@ -16,5 +16,6 @@ dependencies {
         api("androidx.test.ext:junit:$androidxTestExtJunitVersion")
         api("androidx.test:runner:$androidXTestVersion")
         api("org.robolectric:robolectric:$robolectricVersion")
+        api("androidx.test:orchestrator:1.1.0")
     }
 }

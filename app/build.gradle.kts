@@ -59,6 +59,8 @@ android {
         java.srcDir(AndroidConfig.androidTestSourceDir)
     }
     testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+
         unitTests.isIncludeAndroidResources = true
     }
 }
@@ -84,4 +86,19 @@ dependencies {
     testImplementation(platform(project(":platform:core-test-deps")))
     testImplementation("com.google.truth:truth")
     testImplementation("io.insert-koin:koin-test")
+
+    androidTestImplementation(platform(project(":platform:core-integration-test-deps")))
+    androidTestImplementation("androidx.test:core")
+    androidTestImplementation("androidx.test.espresso:espresso-core")
+    androidTestImplementation("androidx.test.ext:junit")
+
+    androidTestImplementation(platform(project(":platform:core-kotlin-deps")))
+    androidTestImplementation("io.insert-koin:koin-test")
+
+
+    androidTestImplementation(platform(project(":platform:core-test-deps")))
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver")
+
+    androidTestUtil(platform(project(":platform:core-integration-test-deps")))
+    androidTestUtil("androidx.test:orchestrator")
 }
