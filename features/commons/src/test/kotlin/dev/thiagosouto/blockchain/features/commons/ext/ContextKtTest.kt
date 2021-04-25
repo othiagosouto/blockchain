@@ -5,7 +5,7 @@ import android.graphics.Color
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import dev.thiagosouto.blockchain.features.charts.R
+import dev.thiagosouto.blockchain.features.commons.R
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config

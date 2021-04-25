@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name="dev.thiagosouto.blockchain.features.charts.test.TestActivity"
+            android:name=".TestActivity"
             android:theme="@style/Theme.BlockChainApp"  />
     </application>
 </manifest>
