@@ -54,7 +54,6 @@ class ChartView @JvmOverloads constructor(
     }
 
     fun showChart(chart: Chart) {
-        contentBinding.title.text = chart.name
         contentBinding.description.text = chart.description
         contentBinding.caption.text = chart.name
         contentBinding.chart.run {

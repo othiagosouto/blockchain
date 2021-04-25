@@ -98,20 +98,17 @@ class ChartViewResult(private val chart: Chart, val retryAction: () -> Unit = {}
     fun contentNotVisible() {
         onView(withId(R.id.chart)).check(matches(not(isDisplayed())))
         onView(withId(R.id.description)).check(matches(not(isDisplayed())))
-        onView(withId(R.id.title)).check(matches(not(isDisplayed())))
         onView(withId(R.id.caption)).check(matches(not(isDisplayed())))
     }
 
     fun contentDisplayed() {
         onView(withId(R.id.chart)).check(matches(isDisplayed()))
         onView(withId(R.id.description)).check(matches(isDisplayed()))
-        onView(withId(R.id.title)).check(matches(isDisplayed()))
         onView(withId(R.id.caption)).check(matches(isDisplayed()))
     }
 
     fun contentDisplayedWithExpectedValues() {
         onView(withId(R.id.description)).check(matches(withText(chart.description)))
-        onView(withId(R.id.title)).check(matches(withText(chart.name)))
         onView(withId(R.id.caption)).check(matches(withText(chart.name)))
     }
 
