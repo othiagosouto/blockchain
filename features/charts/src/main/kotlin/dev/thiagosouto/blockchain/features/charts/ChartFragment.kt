@@ -6,12 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import dev.thiagosouto.blockchain.features.charts.ChartsInteractions.ClickedOnRetry
-import dev.thiagosouto.blockchain.features.charts.ChartsInteractions.OpenedScreen
-import dev.thiagosouto.blockchain.features.charts.ChartsScreenState.Failed
-import dev.thiagosouto.blockchain.features.charts.ChartsScreenState.Idle
-import dev.thiagosouto.blockchain.features.charts.ChartsScreenState.Loading
-import dev.thiagosouto.blockchain.features.charts.ChartsScreenState.Success
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsFragmentChartBinding
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,18 +26,14 @@ class ChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val chartId = arguments?.getString(CHART_ID) ?: "market-price"
+        val stateHandler = ChartStateHandler(
+            chartId,
+            this::getString,
+            chartsViewModel::interact,
+            binding.chartView
+        )
         lifecycleScope.launchWhenCreated {
-            chartsViewModel.bind().collect { state ->
-                when (state) {
-                    is Idle -> chartsViewModel.interact(OpenedScreen(chartId))
-                    is Loading -> binding.chartView.showLoading()
-                    is Success -> binding.chartView.showChart(state.chart)
-                    is Failed -> binding.chartView.showError(
-                        getString(state.titleResId),
-                        getString(state.descriptionResId)
-                    ) { chartsViewModel.interact(ClickedOnRetry("market-price")) }
-                }
-            }
+            chartsViewModel.bind().collect(stateHandler::handle)
         }
     }
 
