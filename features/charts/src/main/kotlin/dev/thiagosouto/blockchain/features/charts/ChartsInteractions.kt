@@ -1,6 +1,6 @@
 package dev.thiagosouto.blockchain.features.charts
 
 sealed class ChartsInteractions {
-    object OpenedScreen : ChartsInteractions()
-    object ClickedOnRetry : ChartsInteractions()
+    class OpenedScreen(val chartId: String) : ChartsInteractions()
+    class ClickedOnRetry(val chartId: String) : ChartsInteractions()
 }

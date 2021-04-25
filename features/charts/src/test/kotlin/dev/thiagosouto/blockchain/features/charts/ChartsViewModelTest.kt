@@ -27,6 +27,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 class ChartsViewModelTest {
     private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    private val chartId = "market-price"
 
     @Before
     fun setup() {
@@ -53,12 +54,12 @@ class ChartsViewModelTest {
         runBlocking {
             val repository: ChartRepository = mockk()
             val chart =
-                Chart(emptyList(), "description", "market-price", "USD", "market-price")
+                Chart(emptyList(), "description", "market-price", "USD", chartId)
 
             coEvery {
                 repository.getChart(
                     ChartParameters(
-                        chartId = "market-price",
+                        chartId = chartId,
                         timespan = "5weeks"
                     )
                 )
@@ -68,7 +69,7 @@ class ChartsViewModelTest {
 
             viewModel.run {
                 bind().test {
-                    interact(ChartsInteractions.OpenedScreen)
+                    interact(ChartsInteractions.OpenedScreen(chartId))
                     val emissions = listOf(expectItem(), expectItem(), expectItem())
                     val viewStates = listOf(
                         ChartsScreenState.Idle,
@@ -109,15 +110,15 @@ class ChartsViewModelTest {
 
     private suspend fun retryHandling(exception: Exception, descriptionResId: Int) {
         val repository: ChartRepository = mockk()
-        val chart = Chart(emptyList(), "description", "market-price", "USD", "market-price")
+        val chart = Chart(emptyList(), "description", "market-price", "USD", chartId)
         coEvery { repository.getChart(any()) } throws exception andThen chart
 
         val viewModel = ChartsViewModel(repository)
 
         viewModel.run {
             bind().test {
-                interact(ChartsInteractions.OpenedScreen)
-                interact(ChartsInteractions.ClickedOnRetry)
+                interact(ChartsInteractions.OpenedScreen(chartId))
+                interact(ChartsInteractions.ClickedOnRetry(chartId))
 
                 val emissions =
                     listOf(expectItem(), expectItem(), expectItem(), expectItem(), expectItem())
@@ -145,7 +146,7 @@ class ChartsViewModelTest {
 
         viewModel.run {
             bind().test {
-                interact(ChartsInteractions.OpenedScreen)
+                interact(ChartsInteractions.OpenedScreen(chartId))
                 val emissions = listOf(expectItem(), expectItem(), expectItem())
                 val viewStates = listOf(
                     ChartsScreenState.Idle,

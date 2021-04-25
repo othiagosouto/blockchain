@@ -22,8 +22,8 @@ class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
         viewModelScope.launch {
             interactions.consumeAsFlow().collect {
                 when (it) {
-                    is ChartsInteractions.OpenedScreen -> showChart()
-                    is ChartsInteractions.ClickedOnRetry -> showChart()
+                    is ChartsInteractions.OpenedScreen -> showChart(it.chartId)
+                    is ChartsInteractions.ClickedOnRetry -> showChart(it.chartId)
                 }
             }
         }
@@ -38,14 +38,14 @@ class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
     }
 
     @Suppress("SwallowedException")
-    private fun showChart() {
+    private fun showChart(chartId: String) {
         viewModelScope.launch {
             _states.value = ChartsScreenState.Loading
             try {
                 _states.value = ChartsScreenState.Success(
                     repository.getChart(
                         ChartParameters(
-                            chartId = MARKET_PRICE,
+                            chartId = chartId,
                             timespan = TIME_SPAN
                         )
                     )
@@ -65,7 +65,6 @@ class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
     }
 
     companion object {
-        private const val MARKET_PRICE = "market-price"
         private const val TIME_SPAN = "5weeks"
     }
 }
