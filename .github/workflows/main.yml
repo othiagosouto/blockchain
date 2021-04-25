@@ -36,3 +36,22 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew clean test
+
+  instrumented_testing:
+    name: instrumented testing
+    runs-on: macos-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: instrumented testing
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 27
+          arch: x86
+          profile: pixel_3
+          script:
+            ./gradlew clean connectedCheck
