@@ -1,6 +1,7 @@
 package configs
 
 object AndroidConfig {
+    const val orchestrator = "ANDROIDX_TEST_ORCHESTRATOR"
     const val androidTestSourceDir = "src/androidTest/kotlin"
     const val applicationId = "dev.thiagosouto.blockchain"
     const val buildToolsVersion = "30.0.3"

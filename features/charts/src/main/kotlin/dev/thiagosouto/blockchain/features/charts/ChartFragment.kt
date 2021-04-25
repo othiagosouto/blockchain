@@ -20,6 +20,7 @@ class ChartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FeaturesChartsFragmentChartBinding.inflate(inflater)
+        arguments?.getString(CHART_ID)?.let(binding.chartView::setTag)
         return binding.root
     }
 

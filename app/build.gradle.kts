@@ -59,9 +59,10 @@ android {
         java.srcDir(AndroidConfig.androidTestSourceDir)
     }
     testOptions {
-        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        execution = AndroidConfig.orchestrator
 
         unitTests.isIncludeAndroidResources = true
+        animationsDisabled = true
     }
 }
 

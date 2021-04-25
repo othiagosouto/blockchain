@@ -52,6 +52,5 @@ jobs:
         with:
           api-level: 27
           arch: x86
-          profile: pixel_3
           script:
             ./gradlew clean connectedCheck
