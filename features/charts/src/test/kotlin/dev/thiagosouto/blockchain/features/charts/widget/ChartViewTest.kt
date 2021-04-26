@@ -7,7 +7,7 @@ import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [23])
-class ChartViewTest {
+internal class ChartViewTest {
 
     @Test
     fun shouldPresentLoading_when_showLoadingIsCalled() {

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 
-class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
+internal class ChartsViewModel(private val repository: ChartRepository) : ViewModel() {
     private val interactions = Channel<ChartsInteractions>(Channel.UNLIMITED)
     private val _states: MutableStateFlow<ChartsScreenState> =
         MutableStateFlow(ChartsScreenState.Idle)

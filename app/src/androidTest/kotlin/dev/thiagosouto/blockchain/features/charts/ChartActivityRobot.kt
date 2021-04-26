@@ -27,10 +27,10 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import java.util.concurrent.TimeoutException
 
-fun launchActivity(tag: String, func: ChartsActivityConfiguration.() -> Unit = {}) =
+internal fun launchActivity(tag: String, func: ChartsActivityConfiguration.() -> Unit = {}) =
     ChartsActivityConfiguration(tag).apply(func)
 
-class ChartsActivityConfiguration(private val tag: String) {
+internal class ChartsActivityConfiguration(private val tag: String) {
     private val server = MockWebServer()
 
     init {
@@ -71,7 +71,7 @@ class ChartsActivityConfiguration(private val tag: String) {
 
 }
 
-class ChartsActivityActions(private val tag: String, private val server: MockWebServer) {
+internal class ChartsActivityActions(private val tag: String, private val server: MockWebServer) {
     infix fun check(func: ChartsActivityResult.() -> Unit) =
         ChartsActivityResult(server).apply(func)
 
@@ -88,7 +88,7 @@ class ChartsActivityActions(private val tag: String, private val server: MockWeb
     }
 }
 
-class ChartsActivityResult(private val server: MockWebServer) {
+internal class ChartsActivityResult(private val server: MockWebServer) {
 
     fun checkBitcoinCirculationMessage() {
         onView(withId(R.id.pager)).check(ViewAssertions.matches(hasDescendant(withText("The total number of bitcoins that have already been mined; in other words, the current supply of bitcoins on the network."))))
@@ -119,11 +119,11 @@ private fun String.readAsText() =
  * A [ViewAction] that waits up to [timeout] milliseconds for a [View]'s visibility value to change to [View.VISIBLE].
  * source: https://adilatwork.blogspot.com/2020/08/espresso-tests-wait-until-view-is.html
  */
-fun waitUntilLoadingNotVisible(timeout: Long): ViewAction {
+internal fun waitUntilLoadingNotVisible(timeout: Long): ViewAction {
     return WaitUntilNotVisibleAction(timeout, R.id.shimmer_view_container)
 }
 
-class WaitUntilNotVisibleAction(private val timeout: Long, private val id: Int) : ViewAction {
+internal class WaitUntilNotVisibleAction(private val timeout: Long, private val id: Int) : ViewAction {
 
     override fun getConstraints(): Matcher<View> {
         return Matchers.any(View::class.java)

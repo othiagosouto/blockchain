@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import dev.thiagosouto.blockchain.features.charts.ChartsActivity
 
-class LaunchActivity : ComponentActivity() {
+internal class LaunchActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

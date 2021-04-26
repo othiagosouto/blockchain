@@ -25,7 +25,7 @@ import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalTime
-class ChartsViewModelTest {
+internal class ChartsViewModelTest {
     private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
     private val chartId = "market-price"
 

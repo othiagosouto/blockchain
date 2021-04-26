@@ -10,7 +10,7 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
-class ChartStateHandlerTest {
+internal class ChartStateHandlerTest {
     private lateinit var interactionHandler: (ChartsInteractions) -> Unit
     private lateinit var chartView: ChartView
     private lateinit var stringProvider: (Int) -> String

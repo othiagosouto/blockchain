@@ -16,7 +16,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalSerializationApi
-class ChartRemoteSourceTest {
+internal class ChartRemoteSourceTest {
     private lateinit var server: MockWebServer
     private val expectedResponse: String = "charts/n_transactions.json".readAsText()
     private lateinit var remoteSource: RemoteSource

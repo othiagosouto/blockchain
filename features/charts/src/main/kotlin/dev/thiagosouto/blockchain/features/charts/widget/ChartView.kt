@@ -19,7 +19,7 @@ import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsView
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsViewChartLoadingBinding
 import dev.thiagosouto.blockchain.features.commons.ext.getThemeColorFrom
 
-class ChartView @JvmOverloads constructor(
+internal class ChartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

@@ -2,7 +2,7 @@ package dev.thiagosouto.blockchain.features.charts
 
 import dev.thiagosouto.blockchain.features.charts.widget.ChartView
 
-class ChartStateHandler(
+internal class ChartStateHandler(
     private val chartId: String,
     private val stringProvider: (Int) -> String,
     private val interactionHandler: (ChartsInteractions) -> Unit,

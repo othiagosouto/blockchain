@@ -11,7 +11,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class ChartRepositoryImplTest {
+internal class ChartRepositoryImplTest {
 
     @Test
     fun `should return Chart from remote source`() = runBlocking {

@@ -13,7 +13,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.net.UnknownHostException
 
-class RemoteUtilsKtTest  {
+internal class RemoteUtilsKtTest  {
 
     @Test(expected = InternetNotAvailableException::class)
     fun `should throw InternetNotAvailableException when UnknownHostException occurs `(): Unit =
@@ -21,7 +21,7 @@ class RemoteUtilsKtTest  {
             val api: ChartsApi = ApiThrowable(UnknownHostException())
             val remoteSource: RemoteSource = ChartRemoteSource(api)
 
-            remoteSource.fetchChartInfo(ChartRequest("anyParameter"))
+            remoteSource.fetchChartInfo(ChartRequest(chartId))
         }
 
     @Test(expected = UnexpectedErrorException::class)
@@ -34,7 +34,7 @@ class RemoteUtilsKtTest  {
             val api: ChartsApi = ApiThrowable(HttpException(response))
             val remoteSource: RemoteSource = ChartRemoteSource(api)
 
-            remoteSource.fetchChartInfo(ChartRequest("anyParameter"))
+            remoteSource.fetchChartInfo(ChartRequest(chartId))
         }
 
     @Test(expected = UnexpectedErrorException::class)
@@ -43,8 +43,12 @@ class RemoteUtilsKtTest  {
             val api: ChartsApi = ApiThrowable(IOException())
             val remoteSource: RemoteSource = ChartRemoteSource(api)
 
-            remoteSource.fetchChartInfo(ChartRequest("anyParameter"))
+            remoteSource.fetchChartInfo(ChartRequest(chartId))
         }
+
+    companion object{
+        private const val chartId = "anyParameter"
+    }
 }
 
 internal class ApiThrowable(private val throwable: Throwable) : ChartsApi {

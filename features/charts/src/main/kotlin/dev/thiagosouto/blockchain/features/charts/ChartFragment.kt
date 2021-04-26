@@ -10,7 +10,7 @@ import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsFrag
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ChartFragment : Fragment() {
+internal class ChartFragment : Fragment() {
     private val chartsViewModel: ChartsViewModel by viewModel()
     private lateinit var binding: FeaturesChartsFragmentChartBinding
 

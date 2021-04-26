@@ -17,10 +17,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.hamcrest.Matchers.not
 
-fun launchChartView(func: ChartViewRobot.() -> Unit = {}) =
+internal fun launchChartView(func: ChartViewRobot.() -> Unit = {}) =
     ChartViewRobot().apply(func)
 
-class ChartViewRobot {
+internal class ChartViewRobot {
     private val retryAction: () -> Unit = mockk(relaxed = true)
     private val viewId: Int = 1332323
     private val chart: Chart =
@@ -66,7 +66,7 @@ class ChartViewRobot {
     }
 }
 
-class ChartViewActions(private val chart: Chart, private val retryAction: () -> Unit) {
+internal class ChartViewActions(private val chart: Chart, private val retryAction: () -> Unit) {
     infix fun check(func: ChartViewResult.() -> Unit) =
         ChartViewResult(chart, retryAction).apply(func)
 
@@ -75,7 +75,7 @@ class ChartViewActions(private val chart: Chart, private val retryAction: () -> 
     }
 }
 
-class ChartViewResult(private val chart: Chart, val retryAction: () -> Unit = {}) {
+internal class ChartViewResult(private val chart: Chart, val retryAction: () -> Unit = {}) {
     fun loadingVisible() {
         println(R.id.shimmer_view_container)
         onView(withId(R.id.shimmer_view_container)).check(matches(isDisplayed()))
