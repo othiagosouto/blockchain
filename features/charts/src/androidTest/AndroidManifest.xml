@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dev.thiagosouto.blockchain.features.charts.test"
+    android:sharedUserId="dev.thiagosouto.blockchain.features.charts.uid">
+
+    <application>
+        <activity
+            android:name="dev.thiagosouto.blockchain.features.charts.ChartViewActivity"
+            android:theme="@style/Theme.BlockChainApp" />
+    </application>
+</manifest>
