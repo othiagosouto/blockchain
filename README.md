@@ -1,0 +1,2 @@
+# blockchain
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d7f6d867299744d69c6181a4e5789f25)](https://app.codacy.com/gh/othiagosouto/blockchain?utm_source=github.com&utm_medium=referral&utm_content=othiagosouto/blockchain&utm_campaign=Badge_Grade_Settings)
