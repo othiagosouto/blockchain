@@ -4,6 +4,7 @@ import configs.KotlinConfig
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("com.facebook.testing.screenshot")
 }
 
 android {
@@ -13,7 +14,7 @@ android {
         targetSdkVersion(AndroidConfig.targetSdk)
         minSdkVersion(AndroidConfig.minSdk)
 
-        testInstrumentationRunner = AndroidConfig.instrumentationTestRunner
+        testInstrumentationRunner = "dev.thiagosouto.blockchain.features.charts.ScreenshotTestRunner"
     }
 
     buildTypes {
@@ -97,5 +98,6 @@ dependencies {
     androidTestImplementation(platform(project(":platform:core-integration-test-deps")))
     androidTestImplementation("androidx.test:runner")
     androidTestImplementation("androidx.test:core")
+    androidTestImplementation("androidx.test.espresso:espresso-core")
     androidTestImplementation("androidx.test.ext:junit")
 }
