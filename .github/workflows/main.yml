@@ -54,3 +54,42 @@ jobs:
           arch: x86
           script:
             ./gradlew clean connectedCheck
+
+  snapshot_testing:
+    name: Snapshot tests
+    runs-on: macos-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 2.7
+
+      - name: Install pip & pillow
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade Pillow
+
+      - name: Setup JDK 1.8
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+      - name: Install pip & pillow
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade Pillow
+
+      - name: snapshot tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 27
+          arch: x86
+          profile: pixel_3
+          script:
+            ./gradlew clean :features:charts:verifyDebugAndroidTestScreenshotTest
