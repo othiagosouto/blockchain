@@ -8,14 +8,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dev.thiagosouto.blockchain.features.charts.databinding.FeaturesChartsActivityChartsBinding
+import org.koin.android.ext.android.inject
 
 class ChartsActivity : FragmentActivity() {
-    private val list: List<Pair<String, String>> =
-        listOf(
-            "market-price" to "Market price",
-            "n-transactions" to "Transactions by day",
-            "total-bitcoins" to "Bitcoins in circulation"
-        )
+    private val chartsProperties: ChartsProperties by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,18 +20,22 @@ class ChartsActivity : FragmentActivity() {
         setContentView(binding.root)
 
         binding.pager.adapter = ChartsAdapter(
-            list.map { it.first },
+            chartsProperties.ids,
             supportFragmentManager,
             lifecycle
         )
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
-            tab.text = list[position].second
+            tab.text = chartsProperties.titles[position]
         }.attach()
     }
 }
 
-class ChartsAdapter(private val ids: List<String>, fm: FragmentManager, lifecycle: Lifecycle) :
+internal class ChartsAdapter(
+    private val ids: List<String>,
+    fm: FragmentManager,
+    lifecycle: Lifecycle
+) :
     FragmentStateAdapter(fm, lifecycle) {
 
     override fun getItemCount(): Int = ids.count()
